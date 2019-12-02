@@ -2,6 +2,7 @@ let hours = 0;
 let minutes = 0;
 let seconds = 0;
 let ms = 0;
+let startTimer;
 const startBtn = document.querySelector('#start');
 const stopBtn = document.querySelector('#stop');
 const resetBtn = document.querySelector('#reset');
@@ -23,6 +24,7 @@ const msHundreds = document.querySelector('#msHundreds');
 const msTens = document.querySelector('#msTens');
 
 stopBtn.disabled = true;
+resetBtn.disabled = true;
 
 hoursInput.addEventListener("input", function(event) {
     hours = hoursInput.value;
@@ -52,7 +54,39 @@ startBtn.addEventListener("click", function(event) {
     if (!secondsInput.value) {
         setDigits(seconds, secondTens, secondOnes, 59);
     }
-    setInterval(tickDown, 10);
+    startTimer = setInterval(tickDown, 10);
+});
+
+stopBtn.addEventListener("click", function(event) {
+    startBtn.disabled = false;
+    resetBtn.disabled = false;
+    stopBtn.disabled = true;
+    clearInterval(startTimer);
+});
+resetBtn.addEventListener("click", function(event) {
+    startBtn.disabled = false;
+    resetBtn.disabled = true;
+    stopBtn.disabled = true;
+    if (!hoursInput.value) {
+        setDigits(hours, hourTens, hourOnes, 99);
+    } else {
+        hours = hoursInput.value;
+        setDigits(hours, hourTens, hourOnes, 99);
+    }
+    if (!minutesInput.value) {
+        setDigits(minutes, minuteTens, minuteOnes, 59);
+    } else {
+        minutes = minutesInput.value;
+        setDigits(minutes, minuteTens, minuteOnes, 59);
+    }
+    if (!secondsInput.value) {
+        setDigits(seconds, secondTens, secondOnes, 59);
+    } else {
+        seconds = secondsInput.value;
+        setDigits(seconds, secondTens, secondOnes, 59);
+    }
+    ms = 0;
+    setDigits(0, msHundreds, msTens, 99);
 });
 
 function setDigits(input, digitTens, digitOnes, max) {
