@@ -44,14 +44,40 @@ logo.setAttribute('src', siteContent["nav"]["img-src"])
 //Nav
 let navItems = document.getElementsByTagName('a');
 for (let i = 0; i < navItems.length; i++) {
-  navItems[i].textContent = siteContent["nav"][`nav-item-${i}`];
+  navItems[i].textContent = siteContent["nav"][`nav-item-${i + 1}`];
 }
 
 //cta
-document.querySelector('.cta-text h1').innerHTML = 'DOM<br>IS<BR>AWESOME';
+document.querySelector('.cta-text h1').textContent = siteContent["cta"]["h1"];
 document.querySelector('.cta-text button').textContent = siteContent["cta"]["button"];
 document.getElementById("cta-img").src = siteContent["cta"]["img-src"];
 
 //main content
+const headersAndContent = document.querySelectorAll('.text-content *');
 
-//top content
+let iter = 0;
+for (key in siteContent["main-content"]) {
+  if (iter < 4) {
+    headersAndContent[iter].textContent = siteContent["main-content"][key];
+    iter++;
+  } else if (iter === 4) {
+    iter++;
+  } else {
+    headersAndContent[iter - 1].textContent = siteContent["main-content"][key];
+    iter++;
+  }
+}
+
+document.getElementById("middle-img").src = siteContent['main-content']["middle-img-src"];
+
+//contact section
+const contactChildren = document.querySelectorAll('.contact *');
+
+iter = 0;
+for (key in siteContent["contact"]) {
+  contactChildren[iter].textContent = siteContent["contact"][key];
+  iter++
+}
+
+//footer
+document.querySelector("footer p").textContent = siteContent["footer"]["copyright"];
