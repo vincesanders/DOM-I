@@ -1,8 +1,3 @@
-let hours = 0;
-let minutes = 0;
-let seconds = 0;
-let ms = 0;
-let startTimer;
 const startBtn = document.querySelector('#start');
 const stopBtn = document.querySelector('#stop');
 const resetBtn = document.querySelector('#reset');
@@ -22,6 +17,12 @@ const secondOnes = document.querySelector('#secondOnes');
 
 const msHundreds = document.querySelector('#msHundreds');
 const msTens = document.querySelector('#msTens');
+
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let ms = 0;
+let startTimer;
 
 stopBtn.disabled = true;
 resetBtn.disabled = true;
@@ -63,6 +64,7 @@ stopBtn.addEventListener("click", function(event) {
     stopBtn.disabled = true;
     clearInterval(startTimer);
 });
+
 resetBtn.addEventListener("click", function(event) {
     startBtn.disabled = false;
     resetBtn.disabled = true;
