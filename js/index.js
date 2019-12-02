@@ -42,9 +42,26 @@ let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
 
 //Nav
+
 let navItems = document.getElementsByTagName('a');
 for (let i = 0; i < navItems.length; i++) {
   navItems[i].textContent = siteContent["nav"][`nav-item-${i + 1}`];
+}
+
+const nav = document.querySelector('nav');
+const newItem1 = document.createElement('a');
+const newItem2 = document.createElement('a');
+
+newItem1.textContent = 'New Item 1';
+newItem1.href = '#';
+newItem2.textContent = 'New Item 2';
+newItem2.href = '#';
+
+nav.prepend(newItem1);
+nav.append(newItem2);
+
+for (item of navItems) {
+  item.style.color = "green";
 }
 
 //cta
