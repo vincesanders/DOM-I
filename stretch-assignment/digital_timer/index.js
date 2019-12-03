@@ -46,42 +46,47 @@ startBtn.addEventListener("click", function(event) {
     startBtn.disabled = true;
     resetBtn.disabled = true;
     stopBtn.disabled = false;
+    setDigitColor('black');
     if (!hoursInput.value) {
+        hours = 0;
         setDigits(hours, hourTens, hourOnes, 99);
     }
     if (!minutesInput.value) {
+        minutes = 0;
         setDigits(minutes, minuteTens, minuteOnes, 59);
     }
     if (!secondsInput.value) {
+        seconds = 0;
         setDigits(seconds, secondTens, secondOnes, 59);
     }
     startTimer = setInterval(tickDown, 10);
 });
 
 stopBtn.addEventListener("click", function(event) {
-    startBtn.disabled = false;
-    resetBtn.disabled = false;
-    stopBtn.disabled = true;
-    clearInterval(startTimer);
+    stopTimer();
 });
 
 resetBtn.addEventListener("click", function(event) {
     startBtn.disabled = false;
     resetBtn.disabled = true;
     stopBtn.disabled = true;
+    setDigitColor('black');
     if (!hoursInput.value) {
+        hours = 0;
         setDigits(hours, hourTens, hourOnes, 99);
     } else {
         hours = hoursInput.value;
         setDigits(hours, hourTens, hourOnes, 99);
     }
     if (!minutesInput.value) {
+        minutes = 0;
         setDigits(minutes, minuteTens, minuteOnes, 59);
     } else {
         minutes = minutesInput.value;
         setDigits(minutes, minuteTens, minuteOnes, 59);
     }
     if (!secondsInput.value) {
+        seconds = 0;
         setDigits(seconds, secondTens, secondOnes, 59);
     } else {
         seconds = secondsInput.value;
@@ -108,32 +113,44 @@ function setDigits(input, digitTens, digitOnes, max) {
 }
 
 function tickDown() {
-    if ((hours + minutes + seconds + ms) === 0) {
-        for(item of digits) {
-            item.style.color = 'red';
-        }
+    if (hours == 0 && minutes == 0 && seconds == 0 && ms == 0) {
+        stopTimer();
+        setDigitColor('red');
         setDigits(0, msHundreds, msTens, 99);
-    } else if (ms === 0) {
+    } else if (ms == 0) {
         ms = 99;
         setDigits(ms, msHundreds, msTens, 99);
-        if (seconds === 0 && minutes + hours !== 0) {
+        if (seconds == 0 && (hours > 0 || minutes > 0) ) {
             seconds = 59
             setDigits(seconds, secondTens,secondOnes, 59);
-            if (minutes === 0 && hours !== 0) {
+            if (minutes == 0 && hours > 0) {
                 minutes = 59
                 setDigits(minutes, minuteTens,minuteOnes, 59);
                 hours--;
-                setDigits(hours,hourTens, hourOnes, 99);
-            } else {
+                setDigits(hours, hourTens, hourOnes, 99);
+            } else if (minutes > 0) {
                 minutes--;
                 setDigits(minutes, minuteTens,minuteOnes, 59);
             }
-        } else {
+        } else if (seconds > 0) {
             seconds--;
             setDigits(seconds, secondTens,secondOnes, 59);
         }
     } else {
         ms--;
         setDigits(ms, msHundreds, msTens, 99);
+    }
+}
+
+function stopTimer() {
+    startBtn.disabled = false;
+    resetBtn.disabled = false;
+    stopBtn.disabled = true;
+    clearInterval(startTimer);
+}
+
+function setDigitColor(color) {
+    for(item of digits) {
+        item.style.color = color;
     }
 }
