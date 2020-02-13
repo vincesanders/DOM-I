@@ -6,11 +6,26 @@
   </head>
   <body>
     <div class="digits">
+      <div class="digit" id="hourTens">-</div>
+      <div class="digit" id="hourOnes">-</div>
+      <div class="digit" id="colon">:</div>
+      <div class="digit" id="minuteTens">-</div>
+      <div class="digit" id="minuteOnes">-</div>
+      <div class="digit" id="colon">:</div>
       <div class="digit" id="secondTens">-</div>
       <div class="digit" id="secondOnes">-</div>
       <div class="digit" id="colon">:</div>
       <div class="digit" id="msHundreds">-</div>
       <div class="digit" id="msTens">-</div>
     </div>
+    <form class="inputs">
+      hours: <input type="number" name="hours" id="hours" min="0" max="99">
+      minutes: <input type="number" name="minutes" id="minutes" min="0" max="59">
+      seconds: <input type="number" name="seconds" id="seconds" min="0" max="59">
+      <button id="start">start</button>
+      <button id="stop">stop</button>
+      <button id="reset">reset</button>
+    </form>
+    <script src="index.js" type="text/javascript" async defer></script>
   </body>
 </html>
